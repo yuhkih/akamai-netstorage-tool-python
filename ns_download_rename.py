@@ -7,7 +7,7 @@ import optparse, sys, json,os
 import xml.etree.ElementTree as ET
 import time
 from datetime import datetime
-from akamai.netstorage import Netstorage
+from netstorage import Netstorage
 
 class NetstorageParser(optparse.OptionParser):
     def format_epilog(self, formatter):

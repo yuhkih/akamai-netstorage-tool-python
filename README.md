@@ -6,11 +6,7 @@
 2. Execute script  
   
 # How to use  
-### Delete specified file  
-*ns_delete.py  <filename>*  
-example:  
-python ns_delete.py mylogfile.log
-  
+ 
 ### Dir specfied directory
 *ns_dir.py* - return files and directories under <CPCODE>/
 *ns_dir.py <dirname>* - retunrn files and directory under <CPCODE>/<dirname>  
@@ -34,10 +30,10 @@ example:
 python ns_download_move.py  - interactive mode
 python ns_download_move.py y - non interactive mode   
    
-### Delete a specified file.
-*ns_delete.py*  
+### Delete specified file  
+*ns_delete.py  <filename>*  
 example:  
-python ns_delete.py myfile
+python ns_delete.py mylogfile.log
    
   
 # confirmed in the following environment  

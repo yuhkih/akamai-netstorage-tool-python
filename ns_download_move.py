@@ -117,7 +117,7 @@ if __name__ == '__main__':
                 # If there isn't target directory, the directory will be created.
                 # ---------------------------------------------
                 action = "rename"
-                newfilename = "/673558/" + movedir + "/" + filename
+                newfilename = cpcode + "/" + movedir + "/" + filename
                 ok, res = ns.rename(pathfilename, newfilename)
             
                 if ok == True :

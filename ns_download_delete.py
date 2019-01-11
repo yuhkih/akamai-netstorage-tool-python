@@ -35,6 +35,16 @@ def debug_result(response, action):
         print("[DEBUG] ----- Response Content -----")
         print(response.text)
 
+def ask_yes_no():
+    while True:
+        # choice = input("Delete all files after downlaod them. Do you want to continue 'yes' or 'no' [y/N]: ").lower()
+        choice = input("Delete all files after downlaod them. Do you want to continue 'yes' or 'no' [y/N]: ").lower()
+
+        if choice in ['y', 'ye', 'yes']:
+            return True
+        elif choice in ['n', 'no']:
+            return False
+
 # ---------------------------------------------
 # Read NetStorage Credential File
 # ---------------------------------------------
@@ -77,6 +87,8 @@ if __name__ == '__main__':
     ns = Netstorage(hostname, username, key)
     res = None
 
+    ask_yes_no()
+
     # ---------------------------------------------
     # Get List
     # ---------------------------------------------
@@ -111,7 +123,7 @@ if __name__ == '__main__':
         # Download file
         # ---------------------------------------------
         if filecount == 0:
-             print("[LOG] No file to be downloaded")    
+            print("[LOG] No file to be deleted")   
         
         for child in root:
             if child.attrib['type'] == "file":
@@ -129,14 +141,13 @@ if __name__ == '__main__':
                     # Move file (correctly specaking, rename file)
                     # If there isn't target directory, the directory will be created.
                     # ---------------------------------------------
-                    action = "rename"
-                    newfilename = cpcode + "/" + movedir + "/" + filename
-                    ok, res = ns.rename(pathfilename, newfilename)
+                    action = "delete"                
+                    ok, res = ns.delete(pathfilename)
             
                     if ok == True :
-                        print("[LOG] Move succeeded",newfilename)
+                        print("[LOG] Delete succeeded",pathfilename)
                     else:
-                        print("[LOG] Move Failed. Abort",newfilename)
+                        print("[LOG] Delete Failed. Abort",pathfilename)
                         exit()
         
                 else:

@@ -1,8 +1,7 @@
 # ----------------------------------------
-# Name: ns_download_move.py
+# Name: ns_download.py
 # Perupose: Download log file then move to other directory
-# 2019/01/08 yuhki initial release
-# 2019/01/11 yuhki fix loop borke when there are directories. 
+# 2019/01/11 yuhki initial realese
 # ----------------------------------------
 import optparse, sys, json,os
 import xml.etree.ElementTree as ET
@@ -112,7 +111,7 @@ if __name__ == '__main__':
         # ---------------------------------------------
         if filecount == 0:
              print("[LOG] No file to be downloaded")    
-        
+
         for child in root:
             if child.attrib['type'] == "file":
                 filename = child.attrib['name']
@@ -123,21 +122,7 @@ if __name__ == '__main__':
                 ok, res = ns.download(pathfilename)
 
                 if ok == True :
-                    print("[LOG] Downlaod succeeded",pathfilename)
-
-                    # ---------------------------------------------
-                    # Move file (correctly specaking, rename file)
-                    # If there isn't target directory, the directory will be created.
-                    # ---------------------------------------------
-                    action = "rename"
-                    newfilename = cpcode + "/" + movedir + "/" + filename
-                    ok, res = ns.rename(pathfilename, newfilename)
-            
-                    if ok == True :
-                        print("[LOG] Move succeeded",newfilename)
-                    else:
-                        print("[LOG] Move Failed. Abort",newfilename)
-                        exit()
+                    print("[LOG] Downlaod succeeded",pathfilename)                
         
                 else:
                     print("[LOG] Downlaod Failed. Abort",pathfilename)

@@ -32,7 +32,8 @@ def debug_result(response, action):
         print(response.text)
 
 args = sys.argv
-delete_file = args[1]
+if len(args) == 2:
+    delete_file = args[1]
 
 # ---------------------------------------------
 # Read NetStorage Credential File
@@ -74,11 +75,10 @@ for line in lines:
 
 if __name__ == '__main__':
 
-    # User setting
-  #  hostname = "yhanada-ns4-1-nsu.akamaihd.net"
-  #  username = "yhanada1"
-  #  key = "VOOhNCvmwBvwfvj843yuyWnosgnCjmnGlTYAAjP3hng1q"
-  #  cpcode = "673558"
+
+    if len(args) != 2:
+        print("[LOG] spefify a file name you want to delete. ns_delete.py <filename>")
+        exit()
 
     ns = Netstorage(hostname, username, key)
     res = None

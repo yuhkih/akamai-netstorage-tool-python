@@ -2,6 +2,7 @@
 # Name: ns_dir.py
 # Perupose: dir only root (/CPCODE ) directory
 # 2019/01/08 yuhki initial release
+# 2019/01/11 yuhki little improvement
 # ----------------------------------------
 
 import optparse, sys, json, os
@@ -102,7 +103,7 @@ if __name__ == '__main__':
     # Analyze return information
     if ok == True :
         print("[LOG] dir succeeded")
-        print("[LOG] ------------------------------")        
+        print("[LOG] ---------- dir result ----------")              
     else:
         print("[LOG] dir failed:", res.text)
         exit()
@@ -117,3 +118,5 @@ if __name__ == '__main__':
         # print(child.tag, child.attrib)
         filename = child.attrib['name']
         print(filename, epoch_to_datetime(int(child.attrib['mtime']))) # Time
+
+    print("[LOG] ---------- end of dir result ----------")      

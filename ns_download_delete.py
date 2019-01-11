@@ -1,8 +1,8 @@
 # ----------------------------------------
 # Name: ns_download_move.py
-# Perupose: Download log file then move to other directory
+# Perupose: Download log file then delete
 # 2019/01/08 yuhki initial release
-# 2019/01/11 yuhki fix loop borke when there are directories. 
+# 2019/01/11 yuhki fix loop borke when there are directories. Some improvement 
 # ----------------------------------------
 import optparse, sys, json,os
 import xml.etree.ElementTree as ET
@@ -37,13 +37,20 @@ def debug_result(response, action):
 
 def ask_yes_no():
     while True:
-        # choice = input("Delete all files after downlaod them. Do you want to continue 'yes' or 'no' [y/N]: ").lower()
         choice = input("Delete all files after downlaod them. Do you want to continue 'yes' or 'no' [y/N]: ").lower()
 
         if choice in ['y', 'ye', 'yes']:
             return True
         elif choice in ['n', 'no']:
             return False
+
+# ---------------------------------------------
+# Argument
+# ---------------------------------------------
+args = sys.argv
+yesflag = "n"
+if len(args) == 2:
+    yesflag = args[1]
 
 # ---------------------------------------------
 # Read NetStorage Credential File
@@ -67,28 +74,24 @@ file.close
 for line in lines:
     if line.find("hostname") >=0:
         hostname = line[:-1].split(" ")[2]
-        # shostname = 'shostname=' + hostname
-        # print(shostname)
     if line.find("username") >=0:
         username = line[:-1].split(" ")[2]
-        # susername = 'username=' + username
-        # print(susername)
     if line.find("key") >=0:
         key = line[:-1].split(" ")[2]
-        # skey = "key=" + key
-        # print(skey)
     if line.find("cpcode") >=0:
        cpcode = line[:-1].split(" ")[2]
-       # scpcode = "cpcode=" + cpcode
-       # print (scpcode)
 
 if __name__ == '__main__':
 
     ns = Netstorage(hostname, username, key)
     res = None
 
-    ask_yes_no()
-
+    if yesflag != "y":
+        if ask_yes_no()  == False:
+            print("Abort operation")
+            exit()
+    else:
+        print("[LOG] non interacative mode.")
     # ---------------------------------------------
     # Get List
     # ---------------------------------------------
